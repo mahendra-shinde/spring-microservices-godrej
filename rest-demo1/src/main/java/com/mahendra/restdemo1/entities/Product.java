@@ -1,7 +1,9 @@
 package com.mahendra.restdemo1.entities;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
-public class Product {
+@XmlRootElement
+public class Product implements java.io.Serializable {
 	private String name;
 	private Integer id;
 	private Double price;
