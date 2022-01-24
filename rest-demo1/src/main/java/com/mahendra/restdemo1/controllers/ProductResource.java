@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mahendra.restdemo1.entities.Product;
 
 @RestController
-@RequestMapping(value="/products",produces = "application/json")
+@RequestMapping(value="/products",produces = {"application/json","application/xml"})
 public class ProductResource {
 	
 	private List<Product> productList = new LinkedList<>();
