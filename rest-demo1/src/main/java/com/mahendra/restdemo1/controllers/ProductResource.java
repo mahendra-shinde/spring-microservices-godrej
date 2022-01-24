@@ -3,6 +3,7 @@ package com.mahendra.restdemo1.controllers;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,16 +17,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mahendra.restdemo1.entities.Product;
+import com.mahendra.restdemo1.services.ProductService;
+
+import ch.qos.logback.core.joran.spi.NoAutoStart;
 
 @RestController
 @RequestMapping(value = "/products", produces = { "application/json", "application/xml" })
 public class ProductResource {
 
-	private List<Product> productList = new LinkedList<>();
-
+	// Spring IoC to INJECT Single copy of "ProductService" here !!!
+	@Autowired private ProductService service;
+	
 	public ProductResource() {
-		productList.add(new Product("Samsung Smart TV ABC123", 1000, 32000D));
-		productList.add(new Product("Panasonic Smart TV PNM123", 1001, 37000D));
+		
 
 	}
 
@@ -33,7 +37,7 @@ public class ProductResource {
 	/// http://localhost:9000/products/
 	@GetMapping
 	public List<Product> getAll() {
-		return productList;
+		return service.getAll();
 	}
 
 	/// The final url-endpoint
@@ -41,51 +45,34 @@ public class ProductResource {
 	@GetMapping(value = "/{id}")
 	public Product findProduct(@PathVariable("id") Integer id) {
 		System.out.println("Path Varable : " + id);
-		return findById(id);
+		return service.findById(id);
 	}
 
 	@PostMapping(consumes = "application/json")
 	public ResponseEntity<String> create(@RequestBody Product product) {
 		System.out.println("Creating a new product....");
 		System.out.println("Name: " + product.getName());
-		productList.add(product);
+		service.insert(product);
 		return new ResponseEntity<String>("Created new product", HttpStatus.CREATED);
 	}
 	
-	private Product findById(Integer id) {
-		for (Product p : productList) {
-			if (p.getId().equals(id)) {
-				System.out.println("Product : " + p.getName());
-				return p;
-			}
-		}
-		return null;
-	}
 	
 	// Endpoint: DELETE http://localhost:9000/products?id=1000 
 	@DeleteMapping
 	public ResponseEntity<String> deleteById(@RequestParam("id")Integer id){
 		System.out.println("Deleting record "+id);
-		Product p = findById(id);
-		if(p == null) {
-			return new ResponseEntity<String>("Product Id:"+id+" was not found", HttpStatus.NOT_FOUND);
-		}
-		productList.remove(p);
+		Product p = service.findById(id);
+		service.delete(p);
 		return new ResponseEntity<String>("Product "+id+" deleted successfuly",HttpStatus.OK);
 	}
 	
 	@PutMapping(value="/{id}",consumes="application/json")
 	public ResponseEntity<Product> update(@PathVariable("id") Integer id, @RequestBody Product p){
 		System.out.println("Updating product id "+id);
-		Product temp = findById(id);
-		if(temp==null) {
-			System.out.println("Not found!");
-			return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
-		}
-		else {
+		Product temp = service.findById(id);
 		temp.setName(p.getName());
 		temp.setPrice(p.getPrice());
 		return new ResponseEntity<Product>(temp,HttpStatus.OK);
-		}
+		
 	}
 }
