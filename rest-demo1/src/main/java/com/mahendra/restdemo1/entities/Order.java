@@ -3,14 +3,16 @@ package com.mahendra.restdemo1.entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
-public class Order {
+@XmlRootElement(name = "orders")
+public class Order implements java.io.Serializable{
 
 	private Integer id;
 	private String customer;
 	private Date date;
+	@XmlElement(name = "product-list")
 	private List<Product> productList;
 	
 	public Integer getId() {

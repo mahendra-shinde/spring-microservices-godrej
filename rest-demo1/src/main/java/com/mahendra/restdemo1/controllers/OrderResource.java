@@ -4,6 +4,10 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,4 +32,25 @@ public class OrderResource {
 		orderList.add(new Order(2001,"Mahendra Shinde",new Date(),p1));
 		orderList.add(new Order(2002,"Sonali Shinde",new Date(),p2));
 	}
+	
+	@GetMapping
+	public List<Order> getAll(){
+		return orderList;
+	}
+	
+	@GetMapping(value="/{id}")
+	public ResponseEntity<Order> findById(@PathVariable("id") Integer id) {
+		Order temp = null;
+		for(Order o : orderList) {
+			if(o.getId().equals(id)) {
+				temp = o;
+			}
+		}
+		if(temp == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Order>(temp,HttpStatus.FOUND);
+	}
+	
+	
 }
