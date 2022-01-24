@@ -14,7 +14,7 @@ public class CurrenyConvertorController {
 
 	@GetMapping()
 	public String convertToUSD(@RequestParam("amount") float amount, Model model) {
-		Currency currency = new Currency(amount / 71.0F ,"USD");
+		Currency currency = new Currency(amount / 69.5F ,"USD");
 		model.addAttribute("amt_usd",currency.toString());
 		return "result";
 	}
