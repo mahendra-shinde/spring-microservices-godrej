@@ -17,7 +17,6 @@ public class MyErrorHandler {
 		System.out.println("Exception caught: "+ ex.getMessage());
 		return new ResponseEntity<String>("Error : "+ex.getMessage(), HttpStatus.BAD_REQUEST);
 	}
-	
-	
+
 	
 }
