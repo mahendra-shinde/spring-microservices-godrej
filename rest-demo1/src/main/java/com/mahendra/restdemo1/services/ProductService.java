@@ -24,6 +24,7 @@ public class ProductService {
 		if(isExists(product.getId())) {
 			throw new RuntimeException("Product "+product.getId()+" Already exists!");
 		}
+		productList.add(product);
 	}
 	
 	public void delete(Product product) {
