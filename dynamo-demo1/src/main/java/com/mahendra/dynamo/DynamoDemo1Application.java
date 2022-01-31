@@ -2,6 +2,7 @@ package com.mahendra.dynamo;
 
 import java.util.List;
 
+import org.socialsignin.spring.data.dynamodb.repository.config.EnableDynamoDBRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +19,7 @@ import com.mahendra.dynamo.dao.EmployeeRepo;
 import com.mahendra.dynamo.entities.Employee;
 
 @SpringBootApplication
+@EnableDynamoDBRepositories
 public class DynamoDemo1Application implements CommandLineRunner {
 
 	@Autowired

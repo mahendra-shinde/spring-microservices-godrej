@@ -22,7 +22,7 @@ public class DynamoConfig {
 	
 
 	@Bean /// Spring managed component
-	public AmazonDynamoDB dynamoDb() {
+	public AmazonDynamoDB amazonDynamoDB() {
 		AmazonDynamoDB db = new AmazonDynamoDBClient(new BasicAWSCredentials(amazonAccessKey, amazonSecretKey));
 		db.setEndpoint(amazonDynamoDbEndpoint);
 		return db;

@@ -18,6 +18,10 @@ public class Employee {
 		return empId;
 	}
 	
+	public void setEmpId(String empId) {
+		this.empId = empId;
+	}
+	
 	@DynamoDBAttribute
 	public String getFirstName() {
 		return firstName;
