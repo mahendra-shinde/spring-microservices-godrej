@@ -29,13 +29,11 @@ public class ProductResource {
 	@Autowired private ProductService service;
 	
 	public ProductResource() {
-		
-
 	}
 
 	/// The final url-endpoint
 	/// http://localhost:9000/products/
-	@GetMapping
+	@GetMapping(produces="application/json")
 	public List<Product> getAll() {
 		System.out.println("Processing the request....");
 		return service.getAll();
