@@ -1,9 +1,3 @@
-# Stage 1 : Build from source code
-FROM openjdk:8-jdk as build
-WORKDIR /app
-COPY . .
-RUN ["./mvnw","package","-DskipTests"]
-
 FROM openjdk:8-jdk
-COPY --from=build /app/target/eureka-server-1.0.jar /app/eureka-server.jar
+COPY target/eureka-server-1.0.jar /app/eureka-server.jar
 CMD ["java","-jar","/app/eureka-server.jar"]
