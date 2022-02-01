@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  eureka:
+    image: mahendrshinde/eureka-server
+    environment:
+      HOSTNAME: eureka
+    ports:
+      - 8761:8761
+
+  config-server:
+    image: mahendrshinde/config-server
+    ports:
+      - 8888
+
+  product-api:
+    image: mahendrshinde/product-service
+    ports:
+    - 8080
+    environment:
+      HOSTNAME: eureka
+      SPRING_CLOUD_CONFIG_URL: http://config-server:8888
+      
+     
