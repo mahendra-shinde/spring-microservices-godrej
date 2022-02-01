@@ -5,5 +5,6 @@ COPY . .
 RUN ["./mvnw","package","-DskipTests"]
 
 FROM openjdk:8-jdk
-COPY --from=build /app/target/eureka-server-1.0.jar /app/eureka-server.jar
-CMD ["java","-jar","/app/eureka-server.jar"]
+ENV servicePort=8080
+COPY --from=build /app/target/*.jar /app/product-service.jar
+CMD ["java","-jar","/app/product-service.jar"]
