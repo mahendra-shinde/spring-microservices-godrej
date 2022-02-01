@@ -1,4 +1,4 @@
-package com.mahendra.restdemo1.services;
+package com.mahendra.productservice.services;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.mahendra.restdemo1.entities.Product;
+import com.mahendra.productservice.entities.Product;
 
 @Component
 @Scope("singleton")
