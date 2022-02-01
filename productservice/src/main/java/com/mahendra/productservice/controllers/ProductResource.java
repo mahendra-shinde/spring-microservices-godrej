@@ -37,6 +37,7 @@ public class ProductResource {
 	/// http://localhost:9000/products/
 	@GetMapping
 	public List<Product> getAll() {
+		System.out.println("Processing the request....");
 		return service.getAll();
 	}
 
