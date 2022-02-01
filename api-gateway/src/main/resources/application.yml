@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: product-api
+        uri: lb://product-api
+        predicates:
+        - Path=/product-api/**
+        filters:
+        - RewritePath=/product-api/(?<path>.*), /$\{path}
+        
+      - id: invoice-api
+        uri: lb://invoice-api
+        predicates:
+        - Path=/invoice-api/**
+        filters:
+        - RewritePath=/invoice-api/(?<path>.*), /$\{path}
+server:
+  port: 9000
